@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dia del Novio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&family=Sacramento&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: vintage;
+      src: url("RougeVintage.ttf");
+    }
+    @font-face {
+      font-family: messy;
+      src: url("Easy Messy.ttf");
+    }
+    @font-face {
+      font-family: fuentebonita;
+      src: url("Autumn_Crush.ttf");
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: #000;
+      font-family: 'fuentebonita';
+      color: #fff;
+      text-align: center;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      position: relative;
+    }
+
+    /* Fondito estrellado */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url("https://www.transparenttextures.com/patterns/stardust.png");
+      opacity: 0.4;
+      animation: stars 30s linear infinite;
+      z-index: -1;
+    }
+
+    @keyframes stars {
+      from { background-position: 0 0; }
+      to { background-position: 1000px 1000px; }
+    }
+
+    h1 {
+      font-size: 3.5em;
+      font-family: 'messy';
+      color: #fcbaf3;
+      text-shadow: 0 0 20px #fa1edd, 0 0 40px #0733f8;
+      margin-top: 80px;
+      animation: glow 3s infinite alternate;
+      padding: 0 10px;
+    }
+
+    h3 {
+      font-size: 2em;
+      font-family: 'messy';
+      color: #d2dee9;
+      text-shadow: 0 0 20px #fa1edd, 0 0 40px #0733f8;
+      margin-top: 50px;
+      animation: glow 3s infinite alternate;
+      padding: 0 10px;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 15px #fa1edd; }
+      to { text-shadow: 0 0 30px #0733f8, 0 0 50px #fa1edd; }
+    }
+
+    .buttons {
+      margin-top: 60px;
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      font-family: 'vintage';
+      padding: 15px 35px;
+      font-size: 1.2em;
+      background: linear-gradient(45deg, #0733f8, #0733f8);
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      color: white;
+      font-weight: bold;
+      box-shadow: 0 0 20px #fa1edd, 0 0 30px #0733f8;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 40px #fa1edd, 0 0 55px #0733f8;
+    }
+
+    /* Overlays (embeds) */
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(10px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+    }
+
+    .overlay-content {
+      background: rgba(0,0,0,0.8);
+      border: 3px solid #fff;
+      box-shadow: 0 0 30px #fa1edd, 0 0 50px #0733f8;
+      border-radius: 25px;
+      padding: 35px;
+      width: 80%;
+      max-width: 600px;
+      text-align: center;
+      position: relative;
+      color: #fff;
+      animation: pop 0.5s ease;
+      max-height: 80vh;
+      overflow-y: auto;
+      box-sizing: border-box;
+    }
+
+    @keyframes pop {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .overlay-content h2 {
+      font-family: 'vintage';
+      font-weight: 600;
+      color: #fff;
+      text-shadow: 0 0 10px #fa1edd, 0 0 20px #0733f8;
+      margin-bottom: 20px;
+    }
+
+    .overlay-content img {
+      max-width: 100%;
+      border-radius: 15px;
+      box-shadow: 0 0 20px #fa1edd, 0 0 30px #0733f8;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 1.8em;
+      color: #fff;
+      cursor: pointer;
+      background: none;
+      border: none;
+      text-shadow: 0 0 10px #fa1edd, 0 0 20px #0733f8;
+      transition: 0.3s;
+    }
+
+    .close-btn:hover {
+      transform: rotate(90deg);
+      color: #fa1edd;
+    }
+
+    .music-list p {
+      margin: 10px 0 5px;
+      font-size: 1.1em;
+      text-shadow: 0 0 8px #0733f8, 0 0 12px #fa1edd;
+    }
+
+    .music-list audio {
+      width: 100%;
+      margin: 10px 0 20px;
+      filter: drop-shadow(0 0 10px #fa1edd);
+      border-radius: 15px;
+    }
+
+    audio#bg-music {
+      display: none;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 14px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #111;
+      border-radius: 10px;
+      box-shadow: inset 0 0 10px #0733f8;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #fa1edd, #0733f8);
+      border-radius: 10px;
+      box-shadow: 0 0 10px #fa1edd, 0 0 20px #0733f8;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(180deg, #ff4ee0, #3c63ff);
+    }
+
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: #fa1edd #111;
+    }
+
+    /* Botones */
+    .back-btn, .volume-btn {
+      position: fixed;
+      z-index: 200;
+      font-family: 'vintage';
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 0 15px #fa1edd, 0 0 25px #0733f8;
+    }
+
+    .back-btn {
+      top: 20px;
+      left: 20px;
+      padding: 10px 20px;
+      border-radius: 25px;
+      background: linear-gradient(45deg, #fa1edd, #0733f8);
+    }
+
+    .volume-btn {
+      top: 20px;
+      right: 70px;
+      padding: 10px 15px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, #fa1edd, #0733f8);
+      font-size: 1.2em;
+    }
+
+    .back-btn:hover, .volume-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 25px #fa1edd, 0 0 40px #0733f8;
+    }
+
+    .deco {
+      position: absolute;
+      bottom: 385px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 300px;
+      height: auto;
+    }
+
+    .decoracion {
+      position: absolute;
+      width: 300px;
+      height: auto;
+      pointer-events: none;
+      animation: flotar 6s ease-in-out infinite alternate;
+      z-index: 0;
+    }
+
+    @keyframes flotar {
+      from { transform: translateY(0px); }
+      to { transform: translateY(-20px); }
+    }
+
+    .star {
+      position: absolute;
+      width: 65px;
+      cursor: pointer;
+      filter: drop-shadow(0 0 15px #fa1edd);
+      transition: transform 0.3s ease, filter 0.3s ease;
+      z-index: 50;
+    }
+
+    .star1 { top: 10%; left: 20%; }
+    .star2 { top: 50%; right: 15%; }
+    .star3 { top: 30%; left: 30%; }
+    .star4 { bottom: 25%; left: 10%; }
+    .star5 { bottom: 15%; right: 25%; }
+
+    .star.clicked {
+      transform: scale(1.3) rotate(15deg);
+      filter: drop-shadow(0 0 25px #0733f8);
+    }
+
+    .download-btn {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-family: 'vintage';
+      font-size: 1em;
+      color: #fff;
+      background: linear-gradient(45deg, #fa1edd, #0733f8);
+      border-radius: 20px;
+      text-decoration: none;
+      box-shadow: 0 0 15px #fa1edd, 0 0 25px #0733f8;
+      transition: 0.3s;
+    }
+
+    .download-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 25px #fa1edd, 0 0 40px #0733f8;
+    }
+
+    /* 📱 Responsive */
+    @media (max-width: 768px) {
+      h1 { font-size: 2.2em; margin-top: 30px; }
+      h3 { font-size: 1.6em; margin-top: 20px; }
+      .buttons { gap: 20px; margin-top: 25px; }
+      .btn { padding: 10px 25px; font-size: 1em; }
+      .deco { width: 45vw; bottom: 15vh; }
+      .decoracion { width: 25vw; }
+      .star { width: 10vw; }
+      .overlay-content { width: 90%; max-width: 90%; }
+      .volume-btn, .back-btn { padding: 8px 12px; font-size: 1em; }
+    }
+
+    @media (min-width: 1025px) {
+      h1 { font-size: 3.5em; }
+      h3 { font-size: 2em; }
+    }
+  </style>
+</head>
+
+<body>
+  <h1>──・୨ৎ・You're just like an Angel・୨ৎ・──</h1>
+
+  <img src="gifs/cute.gif" class="deco">
+  <h3>ᕬ ᕬ ₊ ʚA letter for you..ɞ ₊ ᕬ ᕬ</h3>
+
+  <div class="buttons">
+    <img id="carta-btn" src="gifs/love-letter-love.gif" alt="Carta cerrada" style="width:300px; cursor:pointer;" onclick="animarCarta('carta')">
+  </div>
+
+  <img src="gifs/cinnamoroll (2).gif" class="decoracion" style="top: 50px; left: 120px;">
+  <img src="gifs/cinnamon-roll.gif" class="decoracion" style="top: 75px; right: 100px;">
+  <img src="gifs/heart-cat.gif" class="decoracion" style="top: 250px; right: 150px;">
+  <img src="gifs/cute-cat.gif" class="decoracion" style="top: 370px; left: 150px;">
+
+  <div class="buttons">
+    <button class="btn" onclick="openOverlay('musica')">Songs</button>
+  </div>
+
+  <!-- Overlays -->
+  <div class="overlay" id="overlay-carta">
+    <div class="overlay-content">
+      <button class="close-btn" onclick="closeOverlay('carta')">✖</button>
+      <h2>💌 My Sweet Boy 💌</h2>
+      <img src="imagenes/cartadeAmor.jpg" alt="Carta romántica">
+      <a href="imagenes/cartadeAmor.jpg" download="CartaRomantica.jpg" class="download-btn">⬇ Descargar</a>
+    </div>
+  </div>
+
+  <div class="overlay" id="overlay-musica">
+    <div class="overlay-content">
+      <button class="close-btn" onclick="closeOverlay('musica')">✖</button>
+      <h2>Canciones que te dedico :3</h2>
+      <div class="music-list">
+        <p>Apocalypse - Cigarettes After Sex</p>
+        <audio controls onplay="pauseBgMusic()" onended="resumeBgMusic()">
+          <source src="musica/apocalypse.mp3" type="audio/mpeg">
+        </audio>
+        <p>Dandelions - Ruth B</p>
+        <audio controls onplay="pauseBgMusic()" onended="resumeBgMusic()">
+          <source src="musica/Ruth B_ _ Dandelions _Sub_ Espa_ol _ Lyrics_.mp3" type="audio/mpeg">
+        </audio>
+        <p>Cariño - Te Marias</p>
+        <audio controls onplay="pauseBgMusic()" onended="resumeBgMusic()">
+          <source src="musica/The Marias _ Cari_o _Letra_.mp3" type="audio/mpeg">
+        </audio>
+      </div>
+    </div>
+  </div>
+
+  <!-- Estrellas -->
+  <img src="gifs/star.gif" class="star star1" data-star="1">
+  <img src="gifs/star.gif" class="star star2" data-star="2">
+  <img src="gifs/star.gif" class="star star3" data-star="3">
+  <img src="gifs/star.gif" class="star star4" data-star="4">
+  <img src="gifs/star.gif" class="star star5" data-star="5">
+
+  <div class="overlay" id="overlay-estrellas">
+    <div class="overlay-content">
+      <button class="close-btn" onclick="closeOverlay('estrellas')">✖</button>
+      <h2>Tocaste todas las estrellass!</h2>
+      <img src="imagenes/floresAzules.jpg" alt="Sorpresa">
+      <p style="margin-top:20px; font-size:1.3em;">En mi cosmos repleto de estrellas, tú eres la más brillante, y mi favorita</p>
+      <a href="imagenes/floresAzules.jpg" download="SorpresaEstrellas.jpg" class="download-btn">⬇ Descargar</a>
+    </div>
+  </div>
+
+  <audio id="bg-music" autoplay loop>
+    <source src="musica/cigarettes.mp3" type="audio/mpeg">
+  </audio>
+
+  <button class="btn" onclick="document.getElementById('bg-music').play()">🎵 Activar música</button>
+  <button class="volume-btn" onclick="toggleVolume()">🔊</button>
+  <button class="back-btn" onclick="window.history.back()">⟵ Volver</button>
+
+  <script>
+    function animarCarta(type) {
+      let carta = document.getElementById("carta-btn");
+      carta.src = "love-letter-heart_1.gif";
+      setTimeout(() => {
+        carta.src = "gifs/love-letter-love.gif";
+        openOverlay(type);
+      }, 1000);
+    }
+
+    function toggleVolume() {
+      const music = document.getElementById("bg-music");
+      const btn = document.querySelector(".volume-btn");
+      if (music.muted) {
+        music.muted = false;
+        btn.textContent = "🔊";
+      } else {
+        music.muted = true;
+        btn.textContent = "🔇";
+      }
+    }
+
+    function openOverlay(type) {
+      document.getElementById('overlay-' + type).style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeOverlay(type) {
+      document.getElementById('overlay-' + type).style.display = 'none';
+      document.body.style.overflow = 'auto';
+      resumeBgMusic();
+    }
+
+    function pauseBgMusic() {
+      document.getElementById('bg-music').pause();
+    }
+
+    function resumeBgMusic() {
+      let bg = document.getElementById('bg-music');
+      if (bg.paused) bg.play();
+    }
+
+    let clickedStars = new Set();
+    const stars = document.querySelectorAll(".star");
+
+    stars.forEach(star => {
+      star.addEventListener("click", function() {
+        this.classList.add("clicked");
+        clickedStars.add(this.dataset.star);
+
+        if (clickedStars.size === stars.length) {
+          setTimeout(() => {
+            openOverlay('estrellas');
+          }, 500);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
